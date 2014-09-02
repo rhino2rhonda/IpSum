@@ -1,0 +1,4 @@
+GS General Store
+ES Electronics Store
+HS Hardware Store
+GR Grocery

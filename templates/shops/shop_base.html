@@ -1,0 +1,38 @@
+{% extends 'shops/shop_core.html' %}
+
+{%block title%} Shop Home {% endblock %}
+
+
+{% block central_block %}
+
+<!--Side Bar-->
+<div class="row">
+  <div class="col-sm-3">
+  	<div class="container-fluid" id="side_bar">
+        <!--Profile details-->
+        <div class="container-fluid" id="side_top">
+          <div class="panel panel-default">
+              <div class="panel-heading"><img title="profile image" class="img-rounded img-responsive" src="http://webbydzine.com/wp-content/uploads/2012/07/psd-small-store-icon_main.jpg"></div>
+              <div class="panel-body" id="shop_view_details"><strong id="username"><p>{{shop.shop_name}}</p></strong><i class="fa fa-envelope" fa="1px"></i>{{shop.shop_email}}<br>
+               <i class="fa fa-map-marker"></i> {{shop.shop_address}} 
+              </div>
+            </div>
+        </div>
+        
+        <!--Social Media-->
+        <div class="container-fluid" id="social_media">
+            <div class="panel panel-default">
+                <div class="panel-heading">Share on Social Media <i class="fa fa-share-alt fa-1x"></i></div>
+                <div class="panel-body" align="center">
+                    <i class="fa fa-facebook fa-4x"></i> </i> <i class="fa fa-twitter fa-4x"></i> <i class="fa fa-google-plus fa-4x"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    {% block body_block %}{% endblock %}
+  </div>
+</div>
+
+{% endblock %}

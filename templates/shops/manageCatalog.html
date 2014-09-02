@@ -1,0 +1,62 @@
+{%extends 'shops/shop_base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+
+
+<div class="container-fluid">
+    {% if not catalog %}
+        <strong>You dont have any products in this shops.
+            <hr>
+    {% else %}
+        <table class="table table-striped" align="center">
+        <caption>Catalog Items</caption>
+        <tr>
+            <th>Product Name</th>
+            <th>Price in Shop</th>
+            <th>MRP</th>
+            <th>Delete?</th>
+        </tr>
+        {% for catalog_item in catalog %}
+            <tr>
+                <td>{{ catalog_item.product.product_name }}</td>
+                <td>{{ catalog_item.price }}</td>
+                <td>{{ catalog_item.product.mrp }}</td>
+                <td><buttton onclick="window.location.href='{% url 'shops:managecatalog' shop.id %}?del={{ catalog_item.id }}'"> <i class="fa fa-times fa-1px"></i> </button></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+<div class="row">
+    <div class="col-md-6" align="center">
+        <div class="container-fluid">
+            <a href="{% url 'shops:managecatalog' shop.id %}?catalog_form=1" class="btn btn-md btn-success" >Add product to Catalog</a>
+            <div id="catalog_form" class="collapse in">
+                {% if catalog_form %}
+                <form id="catalog_form" method="post" action="{% url 'shops:managecatalog' shop.id %}?catalog_form=2" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ catalog_form| crispy }}
+                        <button class="btn btn-md btn-primary" type="submit" name="submit"><i class="fa fa-plus-circle fa-1px"></i>Add Item</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6" align="center">
+        <div class="container-fluid">
+            <a href="{% url 'shops:managecatalog' shop.id %}?product_form=1" class="btn btn-md btn-primary" >Add a new product</a>
+            <div id="product_form" class="collapse in">
+            {% if product_form %}
+            <hr>
+                <form id="product_form" method="post" action="{% url 'shops:managecatalog' shop.id %}?product_form=2"
+                        enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ product_form | crispy }}
+                    <button class="btn btn-md btn-primary" type="submit" name="submit"><i class="fa fa-plus-circle fa-1px"></i>Add Item</button>
+                </form>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

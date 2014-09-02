@@ -1,0 +1,85 @@
+{%extends 'shops/shop_base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+
+<div class="row">
+    <div class="col-md-6" align="center">
+        <div class="container-fluid">
+
+            {% if not shop_offers %}
+                <strong>No shop offers available.</strong>
+            {% else %}
+                <table class="table table-striped">
+                <caption>Shop Offers</caption>
+                <tr>
+                    <th>Offer Name</th>
+                    <th>Details</th>
+                    <th>Points Needed</th>
+                    <th>Category</th>
+                    <th>Delete?</th>
+                </tr>
+                {% for offer in shop_offers %}
+                    <tr>
+                        <td>{{ offer.offer_name }}</td>
+                        <td>{{ offer.offer_info }}</td>
+                        <td>{{ offer.points_needed }}</td>
+                        <td>{{ offer.offer_category }}</td>
+                        <td><button type="button" onclick="window.location.href='{% url 'shops:manageoffers' shop.id %}?delshopoff={{ offer.id }}'"><i class="fa fa-times fa-1px"></i> </button></td>
+                    </tr>
+                {% endfor %}
+                </table>
+            {% endif %}
+            <hr>
+                <a href="{% url 'shops:manageoffers' shop.id %}?shop_offer_form=1" class="btn btn-md btn-primary">Add Shop Offer</a>
+            {% if shop_offer_form %}
+                <form id="shop_offer_form" method="post" action="{% url 'shops:manageoffers' shop.id %}?shop_offer_form=2" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ shop_offer_form | crispy }}
+                <button class="btn btn-md btn-primary" type="submit" name="submit"><i class="fa fa-plus-circle fa-1px"></i>Add Offer</button>
+                    </form>
+            {% endif %}
+        </div>
+    </div>
+
+
+<div class="col-md-6" align="center">
+    <div class="container-fluid">
+        {% if not product_offers %}
+            <strong>No product offers available.</strong>
+        {% else %}
+            
+            <table class="table table-striped">
+            <caption>Product Offers</caption>
+            <tr>
+                <th>Offer Name</th>
+                <th>Details</th>
+                <th>Points Needed</th>
+                <th>Product</th>
+                <th>Delete?</th>
+            </tr>
+            {% for offer in product_offers %}
+                <tr>
+                    <td>{{ offer.offer_name }}</td>
+                    <td>{{ offer.offer_info }}</td>
+                    <td>{{ offer.points_needed }}</td>
+                    <td>{{ offer.offer_catalog_item.product.product_name }}</td>
+                    <td><button type="button" onclick="window.location.href='{% url 'shops:manageoffers' shop.id %}?delprodoff={{ offer.id }}'"> <i class="fa fa-times fa-1px"></i> </button></td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+    <hr>
+
+        <a href="{% url 'shops:manageoffers' shop.id %}?product_offer_form=1" class="btn btn-md btn-primary">Add Product Offer</a>
+        {% if product_offer_form %}
+            <form id="shop_offer_form" method="post" action="{% url 'shops:manageoffers' shop.id %}?product_offer_form=2"
+                    enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ product_offer_form | crispy }}
+                <button class="btn btn-md btn-primary" type="submit" name="submit"><i class="fa fa-plus-circle fa-1px"></i>Add Offer</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+</div>
+{% endblock %}

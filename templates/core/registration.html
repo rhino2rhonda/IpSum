@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+{% load crispy_forms_tags %}
+
+<head>
+<!--Initialization-->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Online Retail Portal">
+	<meta name="author" content="Rohit/Anant/Abhilash">
+	<!-- Bootstrap Core CSS -->
+	  <link href="/static/css/bootstrap.min.css" rel="stylesheet"> 
+	<!-- Custom CSS -->
+	  <link href="/static/css/bootstrap-extension.css" rel="stylesheet">
+	<!-- Custom Fonts -->
+	  <link href="/static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	  <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+	  <title>Registration</title>
+</head>
+
+
+  <body>
+  	<div id="holder">
+	<div class="container-fluid" id="registration_form">
+		<div class="col-sm-6">
+			<h1>User Registration</h1>
+			<br>
+			<hr>
+			<br>
+			<p>Register As:</p><br>
+			<input type="radio" name="usertype" value="consumer" onclick="window.location.href='{% url 'core:register' 'consumer' %}'" {% if userType == "consumer" %} checked {% endif %}>Consumer
+			<input type="radio" name="usertype" value="shopadmin" onclick="window.location.href='{% url 'core:register' 'shopadmin' %}'" {% if userType == "shopadmin" %} checked {% endif %}>ShopAdmin
+			<hr>
+			<form id="reg_form" method="post" action="{% url 'core:register' userType %}"
+					enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ user_form| crispy}}
+			<button class="btn btn-lg btn-success" type="submit" name="submit"><i class="glyphicon glyphicon-ok-sign"></i> Register</button>
+			</form>
+				{% if registered %} Thank you for registering! <a href="{% url 'core:login' %}">Login Here.	</a>{%endif%}		
+		</div>
+	</div>
+        <footer class"site-footer" id="footer">
+            <div class="container text-center">
+                Copyright &copy; ipsum.com [2014]
+            </div>
+        </footer>
+    </div>
+	</body>
+
+<!--Tail end plugins-->
+<script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!-- Custom Plugin JavaScript -->
+<script src="{% static 'js/jquery.easing.min.js'%}"></script>
+<script src="{% static 'js/profile.js'%}"></script>
+<script src="{% static 'js/grayscale.js' %}"></script>
+</html>

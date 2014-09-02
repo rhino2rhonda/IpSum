@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+{% load static %}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="/static/css/bootstrap-login-adj.css" rel="stylesheet">
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="/static/css/bootstrap-extension.css" rel="stylesheet">
+        <link href="/static/css/facebook.css" type="text/css" rel="stylesheet" media="all" />
+        <title>Login</title>
+    </head>
+    
+    <body>
+        <div id="holder">
+        <div class="container" align="center">
+            
+            <form class="form-login span4" id="login_form" method="post" action= "{% url 'core:login' %}">
+            {% csrf_token %}
+            <h2 class="form-login-heading" align ="center">Ipsum</h2>
+<!--             {% if bad_details %}
+                <p><strong>Your username and/or password were incorrect!</strong></p>
+            {% elif disabled_account %}
+                <p><strong>Your account is currently disabled. We can't log you in!</strong></p>
+            {% endif %} -->
+                <input type="text" name="username" value="" size="50" class="form-control" placeholder="User Name" required autofocus/>
+                <br>
+                <input type="password" name="password" value="" size="50" class="form-control" placeholder="Password" required autofocus />
+                <br>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+            </form>
+<!--             <form action="{% url 'facebook_connect' %}?facebook_login=1" method="post">
+                <input type="hidden" value="{{ request.path }}" name="next" />
+                <input type="hidden" value="{{ request.path }}" name="register_next" />
+                <input type="hidden" value="{{ request.path }}" name="error_next" />
+                {% csrf_token %}
+                <input onclick="F.connect(this.parentNode); return false;" type="image" src="/static/images/facebook_login.png" />
+            </form> -->
+
+        </div>
+        <script src="{% static 'js/jquery-2.0.3.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+        <footer class"site-footer" id="footer">
+            <div class="container text-center">
+                Copyright &copy; ipsum.com [2014]
+            </div>
+        </footer>
+    </div>
+    </body>
+</html>

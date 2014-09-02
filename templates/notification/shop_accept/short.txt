@@ -1,0 +1,1 @@
+{{ invite.shop }} invited {{ invite.user }} as a customer.

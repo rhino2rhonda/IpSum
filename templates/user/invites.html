@@ -1,0 +1,21 @@
+{% extends 'user/user_base.html' %}
+
+{% block body_block %}
+<h4>Pending Invites</h4>
+<p class="pull-right"><a href="#">Mark all as read</a></p>
+<br>
+<br>
+<br>
+<div class="well" id="notification_well">
+	<div class="row">
+		<div class="panel panel-default">
+			<a href="#">XYZ {{shop.shop_name}} </a> wants to add you as a customer
+		<div class="container" id="invite_button_cont">
+			<button class="btn btn-lg btn-success">Accept</button>
+			<button class="btn btn-lg btn-danger">Reject</button>
+		</div>
+		</div>
+	</div>
+</div>
+
+{%endblock%}
