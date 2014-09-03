@@ -125,7 +125,7 @@ def ManageOffersView(request, shopid):
             shop_offer_form = ShopAdminShopOfferForm(data=request.POST)
             if shop_offer_form.is_valid():
                 shop_offer = shop_offer_form.save(commit = False)
-                shop_offer.shop = shop
+                shop_offer.offer_shop = shop
                 shop_offer.save()
                 shop_offer_form = None
         elif request.GET.get("product_offer_form") and int(request.GET.get("product_offer_form")) == 2: #submitted
