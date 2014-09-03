@@ -28,7 +28,7 @@ def HomeView(request,shopid=None):
         else:
             count = 0
         return render_to_response("user/home.html", {'visits':count,'home':home}, context_instance=RequestContext(request))
-    
+
 
     elif request.user.groups.filter(name='shopadmin'):
         context = {}
@@ -88,7 +88,7 @@ def ShopView(request, shopid):
                             'like_button',
                             'visited_button',
                             'loyalty_points')
-    print "8888888888888"    
+    print "8888888888888"
     user = request.user
     shop = Shop.objects.get(id=shopid)
     like_button=False
@@ -105,12 +105,12 @@ def ShopView(request, shopid):
         visited_button = True
         relation.user_like = True
         relation.loyalty_points += 100
-    
+
     loyalty_points = relation.loyalty_points
 
     context_objects = (shop, shop.catalog_set.all(),relation.visited,relation.user_like,loyalty_points)
     context = RequestContext(request, dict(zip(context_objects_name,context_objects)))
-    
+
     template = loader.get_template(template_name)
     return HttpResponse(template.render(context))
 
@@ -145,6 +145,7 @@ def AllSellersView(request, prodid):
 
 @login_required
 def OfferView(request):
+
     context= RequestContext(request)
     context = {"SiteOffers" : None}
 
@@ -154,7 +155,9 @@ def OfferView(request):
     for s in shops:
         offers = s.shopoffer_set.all()
         if offers:
-            ShopOffers.append((offers))
+            for offer in offers:
+                offer.eligibilityCheck(request.user)
+                ShopOffers.append(offer)
     context["ShopOffers"] = ShopOffers
 
     #productOffers
@@ -163,10 +166,10 @@ def OfferView(request):
     for c in catalog_items:
         offers = c.productoffer_set.all()
         if offers:
-            ProductOffers.append((offers))
+            for offer in offers:
+                offer.eligibilityCheck(request.user, c.shop)
+                ProductOffers.append(offer)
     context["ProductOffers"] = ProductOffers
-    print (ShopOffers)
-    print ProductOffers
 
     return render_to_response("user/offers.html",context,context_instance=RequestContext(request))
 

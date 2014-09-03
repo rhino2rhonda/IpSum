@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from shops.models import Shop, History, ShopOffer, ProductOffer, Catalog, ShopUserRelation
 
-
 # Register your models here.
 class ShopOfferInline(admin.TabularInline):
     model = ShopOffer
@@ -27,3 +26,4 @@ class CatalogAdmin(admin.ModelAdmin):
 admin.site.register(Shop, ShopAdmin)
 admin.site.register(Catalog, CatalogAdmin)
 admin.site.register(History)
+admin.site.register(ShopUserRelation)
