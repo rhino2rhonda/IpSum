@@ -42,7 +42,7 @@ def LoginView(request):
 
 
 def RegistrationView(request, usertype):
-    if usertype in ["consumer", "shopadmin"]:
+    if usertype in ["consumers", "shopadmin"]:
         context = {"userType": usertype}
         registered = False
         if request.method == 'POST':
