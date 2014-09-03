@@ -170,7 +170,6 @@ def OfferView(request):
 
     return render_to_response("user/offers.html",context,context_instance=RequestContext(request))
 
-
 @login_required
 def PointsView(request):
     user=request.user
